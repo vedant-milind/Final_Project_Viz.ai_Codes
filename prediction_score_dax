@@ -1,0 +1,16 @@
+For prediction score:
+WinProbability =
+VAR Margin =
+CALCULATE(
+AVERAGE(president_polls[pct]),
+president_polls[candidate_name] = "Candidate 1"
+) -
+CALCULATE(
+AVERAGE(president_polls[pct]),
+president_polls[candidate_name] = "Candidate 2"
+)
+RETURN
+IF(
+Margin >= 0,
+1 / (1 + EXP(-0.1 * Margin)), // Adjust the factor as needed
+1 - (1 / (1 + EXP(0.1 * Margin)))
