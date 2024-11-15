@@ -1,0 +1,51 @@
+AverageFavorability =
+CALCULATE(
+AVERAGE(favorability_polls[favorable]),
+FILTER(
+favorability_polls,
+favorability_polls[politician] IN VALUES(CandidateSelection[candidate_name])
+)
+)
+
+
+AveragePollingPct =
+CALCULATE(
+AVERAGE(president_polls[pct]),
+FILTER(
+president_polls,
+president_polls[candidate_name] IN VALUES(CandidateSelection[candidate_name])
+)
+)
+
+
+For prediction score:
+WinProbability =
+VAR Margin =
+CALCULATE(
+AVERAGE(president_polls[pct]),
+president_polls[candidate_name] = "Candidate 1"
+) -
+CALCULATE(
+AVERAGE(president_polls[pct]),
+president_polls[candidate_name] = "Candidate 2"
+)
+RETURN
+IF(
+Margin >= 0,
+1 / (1 + EXP(-0.1 * Margin)), // Adjust the factor as needed
+1 - (1 / (1 + EXP(0.1 * Margin)))
+
+
+Polling trend
+Candidate1Polling =
+CALCULATE(
+AVERAGE(president_polls[pct]),
+FILTER( president_polls, president_polls[candidate_name] =
+SELECTEDVALUE(Candidate1Selection[candidate_name])
+)
+)
+
+
+Favorability rating chart:
+AvgFavorable = AVERAGE(favorability_polls[favorable])
+AvgUnfavorable = AVERAGE(favorability_polls[unfavorable])
