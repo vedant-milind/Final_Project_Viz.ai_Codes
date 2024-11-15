@@ -1,0 +1,2 @@
+AvgFavorable = AVERAGE(favorability_polls[favorable])
+AvgUnfavorable = AVERAGE(favorability_polls[unfavorable])
