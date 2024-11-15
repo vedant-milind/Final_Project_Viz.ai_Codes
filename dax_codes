@@ -1,0 +1,8 @@
+AverageFavorability =
+CALCULATE(
+AVERAGE(favorability_polls[favorable]),
+FILTER(
+favorability_polls,
+favorability_polls[politician] IN VALUES(CandidateSelection[candidate_name])
+)
+)
